@@ -22,16 +22,16 @@ Route::post('/postlogin', 'AuthController@postlogin');
 Route::get('/logout', 'AuthController@logout');
 
 Route::group(['middleware' => ['auth', 'checkRole:admin']], function () {
-    Route::get('/siswa', 'SiswaController@index')->name('index');
-    Route::post('/siswa/create', 'SiswaController@create')->name('create');
-    Route::get('/siswa/{id}/edit', 'SiswaController@edit');
-    Route::post('/siswa/{id}/update', 'SiswaController@update');
-    Route::get('/siswa/{id}/delete', 'SiswaController@delete');
-    Route::get('/siswa/{id}/profile', 'SiswaController@profile');
+    Route::get('/anggota', 'SiswaController@index')->name('index');
+    Route::post('/anggota/create', 'SiswaController@create')->name('create');
+    Route::get('/anggota/{id}/edit', 'SiswaController@edit');
+    Route::post('/anggota/{id}/update', 'SiswaController@update');
+    Route::get('/anggota/{id}/delete', 'SiswaController@delete');
+    Route::get('/anggota/{id}/profile', 'SiswaController@profile');
 });
 
 Route::group(['middleware' => ['auth', 'checkRole:siswa']], function(){
-    // Route::post('anggota/register', 'SiswaController@register')->name('register');
+    Route::post('anggota/register', 'SiswaController@register')->name('register');
 });
 
 Route::group(['middleware' => ['auth', 'checkRole:admin,siswa']], function () {
