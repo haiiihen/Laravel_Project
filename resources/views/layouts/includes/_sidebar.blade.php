@@ -4,7 +4,7 @@
 					<ul class="nav">
 						<li><a href="/" class="active"><i class="lnr lnr-home"></i> <span>Dashboard</span></a></li>
 						@if(auth()->user()->role == 'admin')
-						<li><a href="/siswa" class=""><i class="lnr lnr-user"></i> <span>Anggota</span></a></li>
+						<li><a href="/anggota" class=""><i class="lnr lnr-user"></i> <span>Anggota</span></a></li>
 						@endif
 						<li><a href="charts.html" class=""><i class="lnr lnr-chart-bars"></i> <span>Charts</span></a></li>
 						<!-- <li><a href="panels.html" class=""><i class="lnr lnr-cog"></i> <span>Panels</span></a></li>

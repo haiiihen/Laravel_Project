@@ -52,9 +52,9 @@
                                         <td>{{$data->instagram}}</td>
                                         <td>{{$data->noHandphone}}</td>
                                         <td>
-                                            <a href="/siswa/{{$data->id}}/profile" class="btn btn-primary btn-sm">Show</a>
-                                            <a href="/siswa/{{$data->id}}/edit" class="btn btn-warning btn-sm">Edit</a>
-                                            <a href="/siswa/{{$data->id}}/delete" class="btn btn-danger btn-sm" onClick="return confirm('Yakin data akan dihapus?')">Delete</a>
+                                            <a href="/anggota/{{$data->id}}/profile" class="btn btn-primary btn-sm">Show</a>
+                                            <a href="/anggota/{{$data->id}}/edit" class="btn btn-warning btn-sm">Edit</a>
+                                            <a href="/anggota/{{$data->id}}/delete" class="btn btn-danger btn-sm" onClick="return confirm('Yakin data akan dihapus?')">Delete</a>
                                         </td>
                                     </tr>
                                     @endforeach
@@ -79,7 +79,7 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form action="/siswa/create" method="POST">
+                    <form action="/anggota/create" method="POST">
                         {{csrf_field()}}
                         <div class="form-group">
                             <label for="exampleInputEmail1">Nama Depan</label>
