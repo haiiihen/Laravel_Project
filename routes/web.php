@@ -13,27 +13,55 @@
 
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
-    return view('home');
-});
+Route::get('/blog', 'SiteController@blog');
+Route::get('/test','SiteController@home')->name('test');
+
+
+Route::get('/', 'SiteController@index');
+Route::get('/register', 'SiteController@register')->name('register');
+Route::post('/postregister', 'SiteController@postregister');
 
 Route::get('/login', 'AuthController@login')->name('login');
 Route::post('/postlogin', 'AuthController@postlogin');
 Route::get('/logout', 'AuthController@logout');
 
 Route::group(['middleware' => ['auth', 'checkRole:admin']], function () {
-    Route::get('/anggota', 'SiswaController@index')->name('index');
-    Route::post('/anggota/create', 'SiswaController@create')->name('create');
-    Route::get('/anggota/{id}/edit', 'SiswaController@edit');
-    Route::post('/anggota/{id}/update', 'SiswaController@update');
-    Route::get('/anggota/{id}/delete', 'SiswaController@delete');
-    Route::get('/anggota/{id}/profile', 'SiswaController@profile');
+    Route::get('/admin', 'Admin\AdminController@index')->name('index');
+    Route::post('/admin/create', 'Admin\AdminController@create')->name('create');
+    Route::get('/admin/{id}/edit', 'Admin\AdminController@edit');
+    Route::post('/admin/{id}/update', 'Admin\AdminController@update');
+    Route::get('/admin/{siswa}/delete', 'Admin\AdminController@delete');
+    Route::get('/admin/{id}/profile', 'Admin\AdminController@profile'); //part 24, 3m
+    Route::get('/admin/exportExcel', 'Admin\AdminController@exportExcel');
+    Route::get('/admin/exportPdf', 'Admin\AdminController@exportPdf');
+    Route::get('/admin/profile', 'Admin\AdminController@profileAdmin')->name('adminProfile');
+    Route::get('/posts','PostController@index')->name('posts.index');
+    Route::get('post/add',[
+        'uses' => 'PostController@add',
+        'as' => 'posts.add'
+    ]);
+    Route::post('post/create',[
+        'uses' => 'PostController@create',
+        'as' => 'posts.create',
+    ]);
 });
 
-Route::group(['middleware' => ['auth', 'checkRole:siswa']], function(){
-    Route::post('anggota/register', 'SiswaController@register')->name('register');
+Route::group(['middleware' => ['auth', 'checkRole:member']], function(){
+    Route::get('/member/dataMember', 'Member\MemberController@index')->name('index');
+    Route::get('/member/profile', 'Member\MemberController@profile')->name('memberProfile');
+    
 });
 
-Route::group(['middleware' => ['auth', 'checkRole:admin,siswa']], function () {
+Route::group(['middleware' => ['auth', 'checkRole:admin,member']], function () {
     Route::get('/dashboard', 'DashboardController@index');
 });
+
+Route::get('getdatamember', [
+    'uses' => 'Admin\AdminController@getdatamember',
+    'as' => 'ajax.get.data.member',
+]);
+
+Route::get('/{slug}',[
+    'uses' => 'SiteController@singlepost',
+    'as' => 'site.single.post'
+]);
